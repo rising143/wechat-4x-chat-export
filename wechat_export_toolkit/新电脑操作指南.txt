@@ -1,0 +1,89 @@
+================================================================
+  微信聊天记录导出工具包 (免安装版)
+  适用于微信 4.1.x (Windows) - 无需安装 Python
+================================================================
+
+【工具包内容】
+  wechat_export_toolkit/
+  ├── wechat_export.exe           一键导出工具 (已打包Python环境)
+  ├── 新电脑操作指南.txt          本文件
+  └── wechat-decrypt/
+      ├── DbkeyHookCMD.exe        密钥提取工具 (命令行)
+      └── DbkeyHookUI.exe         密钥提取工具 (图形界面)
+
+  总大小约 13MB，不需要安装任何软件！
+
+================================================================
+  操作步骤
+================================================================
+
+【第1步】启动微信
+  打开微信，停在扫码登录界面（先不要登录）
+
+【第2步】提取数据库密钥
+  1. 以【管理员身份】打开 PowerShell:
+     - 右键开始菜单 → "终端(管理员)" 或 "Windows PowerShell(管理员)"
+  2. 进入工具包目录:
+     cd <U盘路径>\wechat_export_toolkit\wechat-decrypt
+  3. 运行:
+     .\DbkeyHookCMD.exe
+  4. 回到微信扫码登录
+  5. 等待输出: "获取到DbKey：xxxxxxxxxxxx..."（64位十六进制）
+  6. 复制保存这串密钥
+
+  ※ 也可以双击 DbkeyHookUI.exe 用图形界面版
+
+【第3步】导出聊天记录
+  1. 将工具包复制到电脑任意位置（如桌面）
+  2. 在 PowerShell 中进入工具包目录:
+     cd <路径>\wechat_export_toolkit
+  3. 运行（将密钥粘贴在后面）:
+     .\wechat_export.exe 0a42cad13d0041dc9f0a722c8bffc9bf5071610d499743d6870c5b3008f8e2cc
+
+  工具会自动:
+    - 检测微信数据目录
+    - 解密所有数据库
+    - 生成 Alpaca/ShareGPT/OpenAI/RAG 格式语料
+
+  也可以直接双击 wechat_export.exe 运行，按提示输入密钥
+
+【第4步】查看结果
+  生成的文件在 wechat_export_output\corpus_output\ 目录:
+    alpaca.jsonl            - 指令-响应格式 (LLM微调)
+    sharegpt.jsonl          - 多轮对话格式 (LLM微调)
+    openai_finetune.jsonl   - OpenAI微调API格式
+    rag_knowledge.jsonl     - RAG知识库格式
+    conversations_raw.jsonl - 原始对话记录
+    statistics.json         - 统计报告
+
+================================================================
+  命令行参数
+================================================================
+
+  wechat_export.exe                           交互式运行
+  wechat_export.exe <密钥>                    使用指定密钥
+  wechat_export.exe <密钥> --db-dir "路径"    指定微信数据目录
+  wechat_export.exe --step 2                  只生成语料（跳过解密）
+  wechat_export.exe --wxid wxid_xxx           指定微信wxid
+
+================================================================
+  常见问题
+================================================================
+
+Q: DbkeyHookCMD.exe 提示找不到微信进程？
+A: 先启动微信（停在扫码界面），再运行工具
+
+Q: 密钥没获取到？
+A: 确保以管理员身份运行；微信需要从扫码登录开始
+
+Q: wechat_export.exe 运行时闪退？
+A: 在 PowerShell 中运行（不要双击），这样可以看到错误信息
+
+Q: 自动检测不到微信数据目录？
+A: 手动指定: wechat_export.exe <密钥> --db-dir "C:\Users\xxx\Documents\xwechat_files\wxid_xxx\db_storage"
+
+Q: 只想重新生成语料（不重新解密）？
+A: wechat_export.exe --step 2
+
+Q: 杀毒软件拦截？
+A: 将 wechat_export.exe 添加到信任列表，这是 PyInstaller 打包的正常现象

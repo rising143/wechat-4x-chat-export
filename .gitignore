@@ -1,0 +1,56 @@
+# ============================================================
+#  隐私与安全 —— 以下内容含个人聊天记录/密钥，一律禁止入库
+#  参见 wechat_corpus/README.md「隐私与安全」
+# ============================================================
+
+# 数据库密钥（绝不外传）
+all_keys.json
+dbkey.txt
+dbkey_output.txt
+dbkey_result.txt
+dbkey_stdout.txt
+dbkey_stderr.txt
+deep_search_log.txt
+wechat_key.txt
+
+# 本机配置（含个人 wxid 与绝对路径）
+wechat_corpus/wechat-decrypt/config.json
+**/config.json
+
+# 解密后的微信数据库
+**/decrypted/
+*.db
+*.db-shm
+*.db-wal
+*.db.tmp_monitor
+**/decoded_images/
+
+# 生成的语料与聊天导出（含原始对话）
+**/corpus_output/
+*.jsonl
+statistics.json
+
+# 打包/临时副本
+*.zip
+tmp/
+temp/
+
+# 本机专用 Git TLS 配置（含加速器私有 CA 根证书，绝不上传）
+.git-local/
+
+# ============================================================
+#  常规忽略
+# ============================================================
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.idea/
+.vscode/
+
+# 操作系统
+.DS_Store
+Thumbs.db
+desktop.ini
