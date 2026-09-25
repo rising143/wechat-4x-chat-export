@@ -30,6 +30,13 @@ wechat_corpus/wechat-decrypt/config.json
 *.jsonl
 statistics.json
 
+# 聊天人格画像报告 —— 含真实姓名、学校、学号、性格侧写与私密原话，属隐私文件
+wechat-personality/
+**/wechat-personality/
+**/*personality*.html
+**/*人格*.html
+**/*画像*.html
+
 # 打包/临时副本
 *.zip
 tmp/
